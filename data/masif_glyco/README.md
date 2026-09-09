@@ -29,11 +29,6 @@ features/dataset.npz
   v
 models/
 ```
-
-Everything up to `build_feature_table.py` needs the TF1 MaSIF environment and
-runs on Modal (the MSMS binary and the TF1 build both need native x86-64).
-`train_mlp.py` reads only `.npz` and runs locally.
-
 ## Running it
 
 From this directory:
@@ -64,15 +59,6 @@ idempotent: a protein whose output already exists is skipped unless `--force`.
 `train_mlp.py` **pools train and val and re-splits them into 10 folds grouped by
 accession** — every site of a protein stays in one fold, and folds are stratified
 to keep the class balance. 
-
-## Controls
-
-`features/dataset.npz` carries two blocks the MLP does not read, kept so the
-descriptor can be compared against cheaper signals: `meta_<split>` (`d_min`,
-exposure proxy, `plddt`) and `seq_window_<split>`. The comparison that matters
-is whether the 80-d fingerprint beats those three structural numbers — if it
-does not, the surface is not contributing and no amount of MLP tuning changes
-that.
 
 ## Key parameters
 
